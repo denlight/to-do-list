@@ -1,28 +1,53 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <v-app-bar
+      app
+      color="primary"
+      dark>
+
+      <v-btn
+        @click="showModal"
+        text>
+        <span class="mr-2">Add Task</span>
+        <v-icon>mdi-book-plus-outline</v-icon>
+      </v-btn>
+    </v-app-bar>
+    <v-container>
+      <router-view></router-view>
+    </v-container>
+    <Modal v-if="mounted" :modal-toggle="dialog"/>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
+import Modal from './components/Modal'
 export default {
-  name: 'App',
+  name: 'Home',
+
   components: {
-    HelloWorld
+    Modal
+  },
+
+  methods: {
+    showModal() {
+      this.dialog = !this.dialog
+    }
+  },
+
+  data: () => ({
+    dialog: false,
+    mounted: false
+  }),
+
+  mounted() {
+    this.mounted = true
   }
-}
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scoped>
+  .container {
+    padding-top: 100px;
+  }
 </style>
